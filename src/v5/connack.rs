@@ -232,6 +232,10 @@ impl ConnAckProperties {
         let mut authentication_method = None;
         let mut authentication_data = None;
 
+        if bytes.is_empty() {
+            return Ok(None);
+        }
+
         let (properties_len_len, properties_len) = length(bytes.iter())?;
         bytes.advance(properties_len_len);
         if properties_len == 0 {
