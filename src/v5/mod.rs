@@ -122,15 +122,6 @@ pub fn read(stream: &mut BytesMut, max_size: usize) -> Result<Packet, Error> {
     let packet = stream.split_to(fixed_header.frame_length());
     let packet_type = fixed_header.packet_type()?;
 
-    if fixed_header.remaining_len == 0 {
-        // no payload packets
-        return match packet_type {
-            PacketType::PingReq => Ok(Packet::PingReq),
-            PacketType::PingResp => Ok(Packet::PingResp),
-            _ => Err(Error::PayloadRequired),
-        };
-    }
-
     let packet = packet.freeze();
     let packet = match packet_type {
         PacketType::Connect => Packet::Connect(Connect::read(fixed_header, packet)?),
