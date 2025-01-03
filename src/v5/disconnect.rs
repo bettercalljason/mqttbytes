@@ -110,7 +110,7 @@ impl TryFrom<u8> for DisconnectReasonCode {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct DisconnectProperties {
     /// Session Expiry Interval in seconds
     pub session_expiry_interval: Option<u32>,
