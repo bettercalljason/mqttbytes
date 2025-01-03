@@ -109,6 +109,10 @@ impl SubAckProperties {
         let mut reason_string = None;
         let mut user_properties = Vec::new();
 
+        if bytes.is_empty() {
+            return Ok(None);
+        }
+
         let (properties_len_len, properties_len) = length(bytes.iter())?;
         bytes.advance(properties_len_len);
         if properties_len == 0 {
